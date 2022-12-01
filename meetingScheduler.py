@@ -8,8 +8,8 @@ def getScheuldes():
     try:
         with open('schedules.txt') as f:
             schedules = f.readlines()
-    except FileNotFoundError:
-        print('ERROR: File not found')
+    except FileNotFoundError as e:
+        print('ERROR:', e)
         exit(1)
     return schedules
 
