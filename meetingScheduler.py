@@ -1,5 +1,6 @@
 ## imports
 import re
+import json
 
 def getScheuldes():
     # Get the schedules from file
@@ -15,19 +16,28 @@ def getScheuldes():
 def parseSchedules(schedules):
     # Parse the schedules
     # Return the parsed schedules
-    parsedSchedules = []
-    for schedule in schedules:
-        temp = schedule.split()
-        for i in temp:
-            nameSearch = re.match("^.*:$", i)
-            daySearch = re.search("^!?()$", i)
-            if nameSearch is not None:
-                name = nameSearch.group(0)[:-1]
-                print(name)
-            else:
-                print("Damn")
-        
-        print("")
+    parsedSchedules = {}
+    for line in schedules:
+        schedule = line.split()
+        name = schedule[0][:-1]
+        day =  (re.search("(sunday|monday|tuesday|wednesday|thursday|friday|saturday)",line, flags=re.IGNORECASE)).group(0)
+        time = (re.search("\d{2}:\d{2}",line)).group(0)
+        if "yard" in schedule:
+            location = "yard"
+        else:  
+            location = "" 
+        #print(line)    
+        print('"Name":"{0}", "Location"":"{1}", "Day":"{2}", "time":"{3}"'.format(name,location,day,time))
+        parsedSchedules.append('Name:{0}, Location:{1}, Day:{2}, time:{3}'.format(name,location,day,time))
+
+        #jsonObj = json.dumps(list)
+        #print(jsonObj)
+    ## need to work on serilizating to json or format that can work with
+    print(parsedSchedules)
+    jsonObj = json.dumps(parsedSchedules)
+    print(jsonObj)
+
+
     return parsedSchedules
 
 if __name__ == '__main__':
