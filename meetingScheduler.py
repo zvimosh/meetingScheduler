@@ -53,10 +53,10 @@ def parseSchedules(schedules):
     return schedulesJson
 
 if __name__ == '__main__':
-    student = []
+    #student = []
     parsedSchedules = parseSchedules(schedules = getScheuldes())
-    
-    #print(parsedSchedules)
+
+    print(parsedSchedules)
     
 """     for item in parsedSchedules:
         if find_value_by_key(key = 'name', value = item['name'], list_of_dicts = parsedSchedules):
